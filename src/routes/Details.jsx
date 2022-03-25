@@ -7,11 +7,23 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  color: white;
   display: flex;
+  flex-direction: column;
+`;
+const Container2 = styled.div`
+  display: flex;
+  flex: 10;
   justify-content: space-around;
   align-items: center;
-  color: white;
 `;
+const Suggestion = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+  padding-bottom: 20px;
+`;
+
 const Column = styled.div`
   margin-left: 10px;
   width: 50%;
@@ -25,8 +37,21 @@ const Poster = styled.div`
   background-size: cover;
   background-position: center center;
 `;
+const Poster2 = styled.div`
+  background-image: url(${(props) => props.bg});
+  height: 100px;
+  width: 100px;
+  background-color: transparent;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center center;
+`;
 const Title = styled.h1`
   font-size: 65px;
+  margin-bottom: 15px;
+`;
+const TitleSugg = styled.h1`
+  font-size: 20px;
   margin-bottom: 15px;
 `;
 const Subtitle = styled.h4`
@@ -44,6 +69,10 @@ const Button = styled.button`
   border: 1px solid white;
 `;
 
+const MovieSuggestion = styled.p`
+  display: "block";
+  color: "white";
+`;
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
     movie(id: $id) {
@@ -54,6 +83,11 @@ const GET_MOVIE = gql`
       rating
       language
     }
+    suggestions(id: $id) {
+      id
+      medium_cover_image
+      title
+    }
   }
 `;
 
@@ -63,19 +97,33 @@ const Details = () => {
     variables: { id },
   });
   return (
-    <Container>
-      <Column>
-        <Button>
-          <Link to={"/"}>Back</Link>
-        </Button>
-        <Title>{loading ? <div>Загрузка...</div> : data?.movie?.title}</Title>
-        <Subtitle>
-          {data?.movie?.language} · {data?.movie?.rating}
-        </Subtitle>
-        <Description>{data?.movie?.description_intro}</Description>
-      </Column>
-      <Poster bg={data?.movie?.medium_cover_image}></Poster>
-    </Container>
+    <>
+      <Container>
+        <Container2>
+          <Column>
+            <Button>
+              <Link to={"/"}>Back</Link>
+            </Button>
+            <Title>{loading ? <div>Загрузка...</div> : data?.movie?.title}</Title>
+            <Subtitle>
+              {data?.movie?.language} · {data?.movie?.rating}
+            </Subtitle>
+            <Description>{data?.movie?.description_intro}</Description>
+          </Column>
+          <Poster bg={data?.movie?.medium_cover_image}></Poster>
+        </Container2>
+        <Suggestion>
+          {data?.suggestions.map((m) => (
+            <MovieSuggestion>
+              <Link to={`/${m.id}`}>
+                <TitleSugg>{m.title}</TitleSugg>
+                <Poster2 bg={m.medium_cover_image}></Poster2>
+              </Link>
+            </MovieSuggestion>
+          ))}
+        </Suggestion>
+      </Container>
+    </>
   );
 };
 

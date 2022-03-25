@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import Movie from "../components/Movie";
 import styled from "styled-components";
@@ -53,6 +53,14 @@ const Div = styled.div`
   font-size: 16px;
   font-weight: bold;
 `;
+const Button = styled.button`
+  padding: 0 5px 5px;
+  color: #d754ab;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+`;
 
 const GET_MOVIES = gql`
   query {
@@ -60,13 +68,14 @@ const GET_MOVIES = gql`
       id
       medium_cover_image
       title
+      isLiked @client
     }
   }
 `;
 
 const Home = () => {
   const { loading, data } = useQuery(GET_MOVIES);
-  console.log(loading, data);
+
   return (
     <Container>
       <Header>
@@ -78,8 +87,8 @@ const Home = () => {
         <Movies>
           {data.movies.map((m) => (
             <Ort>
-              <Movie key={m.id} id={m.id} bg={m.medium_cover_image} />
-              <Div>{m.title}</Div>
+              <Movie key={m.id} id={m.id} bg={m.medium_cover_image} isLiked={m.isLiked} />
+              {/* <Div>{m.title}</Div> */}
             </Ort>
           ))}
         </Movies>
