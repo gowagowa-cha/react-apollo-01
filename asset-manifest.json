@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/gowagowa-cha/react-apollo-01/static/js/main.032943bc.js",
-    "index.html": "/gowagowa-cha/react-apollo-01/index.html",
-    "main.032943bc.js.map": "/gowagowa-cha/react-apollo-01/static/js/main.032943bc.js.map"
+    "main.js": "/react-apollo-01/static/js/main.1afef341.js",
+    "index.html": "/react-apollo-01/index.html",
+    "main.1afef341.js.map": "/react-apollo-01/static/js/main.1afef341.js.map"
   },
   "entrypoints": [
-    "static/js/main.032943bc.js"
+    "static/js/main.1afef341.js"
   ]
 }
