@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, modify } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
   uri: "http://easycoders-movies.herokuapp.com/",

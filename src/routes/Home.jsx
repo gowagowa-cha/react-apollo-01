@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import Movie from "../components/Movie";
 import styled from "styled-components";
@@ -88,7 +88,7 @@ const Home = () => {
           {data.movies.map((m) => (
             <Ort>
               <Movie key={m.id} id={m.id} bg={m.medium_cover_image} isLiked={m.isLiked} />
-              {/* <Div>{m.title}</Div> */}
+              <Div>{m.title}</Div>
             </Ort>
           ))}
         </Movies>
